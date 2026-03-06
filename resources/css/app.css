@@ -1,0 +1,146 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    #ux-top-progress {
+        @apply fixed left-0 right-0 top-0 z-[80] h-1 origin-left bg-green-600 shadow-sm;
+        transform: scaleX(0);
+        opacity: 0;
+        transition: transform 180ms linear, opacity 200ms ease;
+        pointer-events: none;
+    }
+
+    #ux-top-progress[data-active="1"] {
+        opacity: 1;
+    }
+
+    #ux-toast-region {
+        @apply fixed bottom-4 left-4 z-[70] flex max-w-sm flex-col gap-2;
+        pointer-events: none;
+    }
+
+    .ux-toast {
+        @apply rounded-xl border bg-white px-4 py-3 text-sm text-gray-700 shadow-lg;
+        transform: translateY(6px);
+        opacity: 0;
+        transition: transform 180ms ease, opacity 180ms ease;
+    }
+
+    .ux-toast[data-show="1"] {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    .ux-toast-info {
+        @apply border-gray-200;
+    }
+
+    .ux-toast-success {
+        @apply border-green-200 text-green-800;
+    }
+
+    .ux-toast-error {
+        @apply border-red-200 text-red-800;
+    }
+
+    .ux-loading-fade {
+        @apply opacity-60 pointer-events-none transition;
+    }
+
+    .ux-form-loading {
+        @apply relative;
+    }
+
+    .ux-input-spinner {
+        @apply absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 rounded-full border-2 border-gray-300 border-t-bu;
+        animation: ux-spin 0.7s linear infinite;
+    }
+
+    [data-ux-panel][data-ux-refreshing="1"] {
+        @apply relative;
+    }
+
+    [data-ux-panel][data-ux-refreshing="1"]::after {
+        content: "Refreshing…";
+        @apply absolute right-4 top-3 rounded-full bg-blue-50 px-2 py-0.5 text-[11px] font-semibold text-blue-700;
+    }
+
+    .ux-skeleton {
+        position: relative;
+        overflow: hidden;
+        @apply rounded-md bg-gray-200;
+    }
+
+    .ux-skeleton::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        transform: translateX(-100%);
+        background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.75) 50%, transparent 100%);
+        animation: ux-shimmer 1.2s infinite;
+    }
+
+    html[data-ux-boot-loading="1"] [data-ux-initial-panel][data-ux-panel] [data-ux-panel-skeleton] {
+        display: block !important;
+    }
+
+    html[data-ux-boot-loading="1"] [data-ux-initial-panel][data-ux-panel] [data-ux-panel-content] {
+        display: none !important;
+    }
+
+    .ux-skeleton-card {
+        @apply rounded-2xl border border-gray-200 bg-white p-6 shadow-card;
+    }
+
+    .ux-skeleton-metric {
+        @apply rounded-2xl border border-gray-200 bg-white p-6 shadow-card;
+    }
+
+    .ux-skeleton-title {
+        @apply ux-skeleton h-3 w-24;
+    }
+
+    .ux-skeleton-value {
+        @apply ux-skeleton mt-3 h-8 w-16;
+    }
+
+    .ux-state {
+        @apply rounded-xl border px-4 py-3 text-sm;
+    }
+
+    .ux-state-empty {
+        @apply border-gray-200 bg-gray-50 text-gray-600;
+    }
+
+    .ux-state-error {
+        @apply border-red-200 bg-red-50 text-red-700;
+    }
+
+    .ux-btn-loading {
+        @apply inline-flex items-center gap-2 opacity-80 pointer-events-none;
+    }
+
+    .ux-btn-spinner {
+        @apply inline-block h-4 w-4 rounded-full border-2 border-current border-r-transparent;
+        animation: ux-spin 0.7s linear infinite;
+    }
+}
+
+@keyframes ux-shimmer {
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+@keyframes ux-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ux-skeleton::after {
+        animation: none;
+    }
+}
